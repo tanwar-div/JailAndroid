@@ -5,7 +5,7 @@ import { TurboModuleRegistry } from 'react-native';
 
 // This defines what your module looks like to JavaScript
 export interface Spec extends TurboModule {
-  reverseString(input: string): string;
+  reverseString(input: boolean): boolean;
 }
 
 // This registers the module so you can import it

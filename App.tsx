@@ -7,13 +7,11 @@
 
 //MAIN YAHA PAR RUN HOTA HAI
 
-import { Button } from 'react-native';
 import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import Togg from './Togg';
 import Wogg from './Wogg';
 
 function App() {
@@ -34,11 +32,6 @@ function AppContent() {
   return (
     <View style={styles.container}>
       <Wogg/>
-      <Togg />
-      <Button 
-        title="Click me" 
-        color="#841584"
-       />
     </View>
   );
 }

@@ -7,31 +7,23 @@ import { Button, Text, TextInput, View } from 'react-native';
 import SampleModule from './specs/NativeSampleModule';
 
 const App = () => {
-  const [inputText, setInputText] = useState('Hello World');
-  const [reversedText, setReversedText] = useState('');
+  const [inputb, setInputb] = useState(false);
 
   const handlePress = () => {
     if (SampleModule) {
       // 2. Call the function directly on the imported module
-      const result = SampleModule.reverseString(inputText);
-      setReversedText(result);
+      setInputb(!inputb)
+      const result = SampleModule.reverseString(inputb);
+      if(result) console.error("chrome opened")
     } else {
       console.error("The native module 'SampleModule' is not available.");
     }
   };
 
   return (
-      <View style={{ padding: 20 }}>
-        <Text>Input:</Text>
-        <TextInput
-          value={inputText}
-          onChangeText={setInputText}
-          style={{ borderWidth: 1, padding: 8, marginVertical: 10 }}
-        />
+      <View style={{ padding: 20 }}>       
         <Button title="Reverse String with Native Code" onPress={handlePress} />
-        <Text style={{ marginTop: 20, fontSize: 18 }}>
-          Reversed: {reversedText}
-        </Text>
+        <Text>{`${inputb}`}</Text>
       </View>
   );
 };

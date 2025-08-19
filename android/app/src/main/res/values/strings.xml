@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">lola</string>
+    <string name="accessibility_service_description">YouTube Detection Accessibility Service</string>
 </resources>
