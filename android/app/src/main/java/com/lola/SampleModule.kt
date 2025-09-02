@@ -9,6 +9,10 @@ import android.accessibilityservice.AccessibilityService
 
 import com.facebook.fbreact.specs.NativeSampleModuleSpec
 
+var feat_working: Boolean = false;
+var blocktime: Double = 0.0;
+var lastime: Double = 0.0;
+
 @ReactModule(name = NativeSampleModuleSpec.NAME) 
 class SampleModule(reactContext: ReactApplicationContext) : NativeSampleModuleSpec(reactContext) {
 
@@ -17,6 +21,12 @@ class SampleModule(reactContext: ReactApplicationContext) : NativeSampleModuleSp
     override fun reverseString(input: Boolean): Boolean {
         openAccessibilitySettings(reactApplicationContext)
         return true
+    }
+
+    override fun setsara(ab: Boolean, btime: Double){
+        feat_working = ab
+        blocktime = btime
+        lastime = System.currentTimeMillis().toDouble()
     }
 
     fun openAccessibilitySettings(context: Context) {

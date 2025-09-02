@@ -12,6 +12,14 @@ class MyAccessibilityService : AccessibilityService() {
     
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         event?.let {
+            if(feat_working == false){
+                return
+            }
+            
+            if(lastime + blocktime < System.currentTimeMillis()){
+                return
+            }
+
             val packageName = it.packageName?.toString() ?: "N/A"
 
             val contentDesc = event.contentDescription?.toString()
@@ -20,9 +28,16 @@ class MyAccessibilityService : AccessibilityService() {
 
             val firstText = it.text?.firstOrNull()?.toString() ?: "N/A"
 
-            if((packageName == "com.instagram.android" && contentDesc != null && contentDesc.contains("Reels")) || (firstText == "Shorts" && (packageName == "com.google.android.youtube" || packageName == "com.android.youtube") && className == "android.widget.Button")){
+            val requiredFlags = AccessibilityEvent.CONTENT_CHANGE_TYPE_TEXT or AccessibilityEvent.CONTENT_CHANGE_TYPE_SUBTREE
+
+            if((packageName == "com.instagram.android" && contentDesc != null && contentDesc.contains("Reels")) || ((packageName == "com.google.android.youtube" || packageName == "com.android.youtube") && (event.contentChangeTypes == requiredFlags))){
                 performGlobalAction(GLOBAL_ACTION_BACK)
+                toastput("Get back to work fatso!")
             }
+
+            // if((packageName == "com.instagram.android" && contentDesc != null && contentDesc.contains("Reels")) || (firstText == "Shorts" && (packageName == "com.google.android.youtube" || packageName == "com.android.youtube") && className == "android.widget.Button")){
+            //     performGlobalAction(GLOBAL_ACTION_BACK)
+            // }
         }
     }
 
@@ -47,7 +62,7 @@ class MyAccessibilityService : AccessibilityService() {
     } 
     
     private fun toastput(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
     }
     
     override fun onInterrupt() {
