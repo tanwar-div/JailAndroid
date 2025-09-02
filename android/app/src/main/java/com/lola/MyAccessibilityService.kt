@@ -16,14 +16,11 @@ class MyAccessibilityService : AccessibilityService() {
 
             val contentDesc = event.contentDescription?.toString()
 
-            // val className = it.className?.toString() ?: "N/A"
+            val className = it.className?.toString() ?: "N/A"
 
-            // val firstText = it.text?.firstOrNull()?.toString() ?: "N/A"
-            // if(firstText == "Shorts" && (packageName == "com.google.android.youtube" || packageName == "com.android.youtube") && className == "android.widget.Button"){
-            //     performGlobalAction(GLOBAL_ACTION_BACK)
-            // }
+            val firstText = it.text?.firstOrNull()?.toString() ?: "N/A"
 
-            if(packageName == "com.instagram.android" && contentDesc != null && contentDesc.contains("Reels")){
+            if((packageName == "com.instagram.android" && contentDesc != null && contentDesc.contains("Reels")) || (firstText == "Shorts" && (packageName == "com.google.android.youtube" || packageName == "com.android.youtube") && className == "android.widget.Button")){
                 performGlobalAction(GLOBAL_ACTION_BACK)
             }
         }
