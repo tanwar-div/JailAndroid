@@ -32,7 +32,7 @@ class MyAccessibilityService : AccessibilityService() {
 
             if((packageName == "com.instagram.android" && contentDesc != null && contentDesc.contains("Reels")) || ((packageName == "com.google.android.youtube" || packageName == "com.android.youtube") && (event.contentChangeTypes == requiredFlags))){
                 performGlobalAction(GLOBAL_ACTION_BACK)
-                toastput("Get back to work fatso!")
+                // toastput("Get back to work fatso!")
             }
 
             // if((packageName == "com.instagram.android" && contentDesc != null && contentDesc.contains("Reels")) || (firstText == "Shorts" && (packageName == "com.google.android.youtube" || packageName == "com.android.youtube") && className == "android.widget.Button")){
