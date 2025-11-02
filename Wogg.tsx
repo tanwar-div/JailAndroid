@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-nativ
 // 1. Import your native module from the spec file
 // The path depends on your project structure.
 import SampleModule from './specs/NativeSampleModule';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const App = () => {
   const [inputb, setInputb] = useState(false);
@@ -13,6 +14,51 @@ const App = () => {
   const [currtime, setcurr] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
 
+  const saveTime = async (timeInMs) => {
+    try {
+      await AsyncStorage.setItem('blockTime', JSON.stringify(timeInMs)); // store
+      await AsyncStorage.setItem('startTime', JSON.stringify(Date.now())); // store start time
+    } catch (e) {
+      console.log('Error saving', e);
+    }
+  };
+
+  const loadTime = async () => {
+    try {
+      const savedTime = await AsyncStorage.getItem('blockTime');
+      const savedStart = await AsyncStorage.getItem('startTime');
+  
+      if (savedTime && savedStart) {
+        return {
+          time: JSON.parse(savedTime),
+          start: JSON.parse(savedStart),
+        };
+      }
+      return null;
+    } catch (e) {
+      console.log('Error loading', e);
+    }
+  };
+
+  useEffect(() => {
+    const loadTime = async () => {
+      const savedTime = await AsyncStorage.getItem('blockTime');
+      const savedStart = await AsyncStorage.getItem('startTime');
+  
+      if (savedTime && savedStart) {
+        const duration = Number(savedTime);
+        const start = Number(savedStart);
+        setcurr(start);
+        setBtime(duration);
+        const remaining = duration - (Date.now() - start);
+        if (remaining > 0) setTimeLeft(Math.floor(remaining / 1000));
+      }
+    };
+  
+    loadTime();
+  }, []);
+  
+
   const handlePress = () => {
     if (SampleModule) {
       const result = SampleModule.reverseString(inputb);
@@ -21,7 +67,7 @@ const App = () => {
     }
   };
 
-  const handlestate = () => {
+  const handlestate = async () => {
     if (SampleModule && currtime + btime < Date.now()) {
       
       const h = parseInt(hours) || 0;
@@ -31,6 +77,9 @@ const App = () => {
       SampleModule.setsara(true, asdf);
       setcurr(Date.now());
       setTimeLeft(asdf / 1000);
+
+      await AsyncStorage.setItem('blockTime', String(asdf));
+      await AsyncStorage.setItem('startTime', String(Date.now()));
     } else {
       console.error("Already blocking!");
     }

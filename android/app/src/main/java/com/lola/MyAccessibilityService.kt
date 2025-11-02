@@ -30,10 +30,14 @@ class MyAccessibilityService : AccessibilityService() {
 
             val requiredFlags = AccessibilityEvent.CONTENT_CHANGE_TYPE_TEXT or AccessibilityEvent.CONTENT_CHANGE_TYPE_SUBTREE
 
-            if((packageName == "com.instagram.android" && contentDesc != null && contentDesc.contains("Reels")) || ((packageName == "com.google.android.youtube" || packageName == "com.android.youtube") && (event.contentChangeTypes == requiredFlags))){
+            val nodea: AccessibilityNodeInfo? = event?.source
+
+            if((packageName == "com.instagram.android" && contentDesc != null && contentDesc.contains("Reels")) || ((packageName == "com.google.android.youtube" || packageName == "com.android.youtube") && (event.contentChangeTypes == requiredFlags)) || (packageName == "com.android.settings") && settings_containing_lola_boolean(nodea)){
                 performGlobalAction(GLOBAL_ACTION_BACK)
                 // toastput("Get back to work fatso!")
             }
+
+            // (packageName == "com.android.settings") && 
 
             // if((packageName == "com.instagram.android" && contentDesc != null && contentDesc.contains("Reels")) || (firstText == "Shorts" && (packageName == "com.google.android.youtube" || packageName == "com.android.youtube") && className == "android.widget.Button")){
             //     performGlobalAction(GLOBAL_ACTION_BACK)
@@ -41,16 +45,22 @@ class MyAccessibilityService : AccessibilityService() {
         }
     }
 
-    fun findShortsTab(node: AccessibilityNodeInfo) {
-        if ((node.text?.contains("Shorts", ignoreCase=true) == true) ||
-            (node.contentDescription?.contains("Shorts", ignoreCase=true) == true)) {
-            toastput("found shorts")
+    fun settings_containing_lola_boolean(node: AccessibilityNodeInfo?): Boolean {
+        if (node == null) return false
+
+        if ((node.text?.contains("lola", ignoreCase = true) == true) ||
+            (node.contentDescription?.contains("lola", ignoreCase = true) == true)) {
+            return true
         }
-        
+
         for (i in 0 until node.childCount) {
-            node.getChild(i)?.let { findShortsTab(it) }
+            if (settings_containing_lola_boolean(node.getChild(i))) {
+                return true
+            }
         }
-    }  
+
+        return false
+    }
 
     fun appendToFile(context: Context, filename: String, content: String) {
         try {
