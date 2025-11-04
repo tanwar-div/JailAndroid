@@ -29,6 +29,9 @@ class SampleModule(reactContext: ReactApplicationContext) : NativeSampleModuleSp
         feat_working = ab
         blocktime = btime
         lastime = System.currentTimeMillis().toDouble()
+    }
+
+    override fun open_device_admin_settings(){
         currentActivity?.let {
             requestDeviceAdminPermission(
                 it,

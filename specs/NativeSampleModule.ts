@@ -7,6 +7,7 @@ import { TurboModuleRegistry } from 'react-native';
 export interface Spec extends TurboModule {
   reverseString(input: boolean): boolean;
   setsara(ab: boolean, btime: number): void;
+  open_device_admin_settings(): void;
 }
 
 // This registers the module so you can import it

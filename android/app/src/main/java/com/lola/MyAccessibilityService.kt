@@ -48,8 +48,8 @@ class MyAccessibilityService : AccessibilityService() {
     fun settings_containing_lola_boolean(node: AccessibilityNodeInfo?): Boolean {
         if (node == null) return false
 
-        if ((node.text?.contains("lola", ignoreCase = true) == true) ||
-            (node.contentDescription?.contains("lola", ignoreCase = true) == true)) {
+        if ((node.text?.contains("Scroll Ban", ignoreCase = true) == true) ||
+            (node.contentDescription?.contains("Scroll Ban", ignoreCase = true) == true)) {
             return true
         }
 

@@ -1,5 +1,6 @@
 // App.tsx
 import React, { useEffect, useState } from 'react';
+import { Linking } from 'react-native';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 // 1. Import your native module from the spec file
 // The path depends on your project structure.
@@ -58,6 +59,14 @@ const App = () => {
     loadTime();
   }, []);
   
+  const handle_device_admin_button_click = () => {
+
+    if (SampleModule) {
+      SampleModule.open_device_admin_settings();
+    } else {
+      console.error("The native module 'SampleModule' is not available.");
+    }
+  }
 
   const handlePress = () => {
     if (SampleModule) {
@@ -103,6 +112,10 @@ const App = () => {
         <TouchableOpacity style={styles.topButton} onPress={handlePress}>
           <Text style={styles.topButtonText}>ALLOW ACCESSIBILITY SETTINGS FOR APP</Text>
         </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.topButton} onPress={handle_device_admin_button_click}>
+          <Text style={styles.topButtonText}>ALLOW APP TO BE DEVICE ADMIN</Text>
+        </TouchableOpacity>
 
         {/* Timer / Input */}
         {timeLeft === 0 ? (
@@ -123,8 +136,8 @@ const App = () => {
               onChangeText={setMinutes}
               style={styles.input}
             />
-
-            {btime !== null && <Text style={styles.storedText}>Stored time: {btime} ms</Text>}
+{/* 
+            {btime !== null && <Text style={styles.storedText}>Saved time: {Math.floor(btime / (1000 * 60 * 60))} h {Math.floor(btime / (1000 * 60))} m {Math.floor(btime / 1000)} s</Text>} */}
           </View>
         ) : (
           <Text style={styles.timer}>
@@ -134,7 +147,19 @@ const App = () => {
 
         {/* Bottom Button */}
         <TouchableOpacity style={styles.bottomButton} onPress={handlestate}>
-          <Text style={styles.bottomButtonText}>MAKE APP ADMIN and start blocking</Text>
+          <Text style={styles.bottomButtonText}>Start Blocking</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => Linking.openURL('https://github.com/tanwar-div/')}>
+        <Text style={styles.footerText}>
+          Made with ❤️ by
+          <Text
+            style={styles.linkText}
+          >
+            {' '}Divyanshu
+          </Text>
+        </Text>
+
         </TouchableOpacity>
 
       </View>
@@ -212,6 +237,15 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     textAlign: 'center',
   },
+  footerText: {
+    color: '#9CA3AF', // gray-400
+    marginTop: 20,
+    fontSize: 12,
+  }, 
+  linkText: {
+    color: '#afadff',
+    textDecorationLine: 'underline',
+  }, 
 });
 
 
