@@ -1,97 +1,132 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+Scroll Block
+============
 
-# Getting Started
+Overview
+--------
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+Scroll Block is a modern, open-source Android distraction blocker designed to reduce doom scrolling by blocking infinite short-form content on platforms like YouTube Shorts and Instagram. Enjoy a clean, Material You experience. No root required.
 
-## Step 1: Start Metro
+Caution
+-------
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+Google Play Protect is blocking some people from installing/updating Scroll Block because it uses **Accessibility Permission**. It uses a false pretext of _"this app may try to access sensitive information"_ without any concrete basis.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+If this happens to you, consider [**temporarily disabling Play Protect**](https://www.airdroid.com/quick-guides/disable-google-play-protect) during installation. You can enable it again afterward.
 
-```sh
-# Using npm
-npm start
+We understand this introduces unnecessary friction, but there is nothing we can do about it. Google does not favor third-party apps that fill gaps in its own ecosystem.
 
-# OR using Yarn
-yarn start
+Direct Download
+---------------
+
+
+Allow the permissions in app before setting up block time.
+[Click here](https://drive.google.com/file/d/1gZaUpwJUCuZikivDbmOXITiQRoFyu80E/view?usp=sharing) to download the release apk directly.
+
+If you want to build the apk yourself, follow the following steps:
+------------------------------------------------------------------
+
+Tech Stack
+----------
+
+*   React Native
+    
+*   Android (Gradle)
+    
+*   JavaScript / TypeScript
+    
+
+Prerequisites
+-------------
+
+*   Node.js (LTS)
+    
+*   npm or yarn
+    
+*   Android Studio
+    
+*   Android SDK & Emulator or Physical Device
+    
+*   JDK 17+
+    
+
+Clone the Repository
+--------------------
+
+```
+git clone https://github.com/tanwar-div/JailAndroid
+cd JailAndroid
+```
+Install Dependencies
+--------------------
+
+```
+npm install
 ```
 
-## Step 2: Build and run your app
+Permissions Required
+--------------------
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+**Before setting up the app for the first time, the following permissions must be allowed:**
 
-### Android
+1.  **Accessibility Settings Permission** - Required for app locking functionality
+    
+2.  **Usage Access Permission** - Required to block delete.
+    
 
-```sh
-# Using npm
-npm run android
+These permissions are essential for AppLock to function properly and must be granted before proceeding with time configuration.
 
-# OR using Yarn
-yarn android
+Run on Android (Debug)
+----------------------
+
+Make sure an emulator or physical device is running.
+
+```
+npx react-native run-android
 ```
 
-### iOS
+Generate Debug APK
+------------------
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```
+cd android
+./gradlew assembleDebug
 ```
 
-Then, and every time you update your native dependencies, run:
+**APK output:**
 
-```sh
-bundle exec pod install
+```
+android/app/build/outputs/apk/debug/app-debug.apk
+```
+Generate Release APK
+--------------------
+
+Navigate to android directory:
+
+```
+cd android
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+Build release APK:
 
-```sh
-# Using npm
-npm run ios
+```
+./gradlew assembleRelease
+```
+**APK output:**
 
-# OR using Yarn
-yarn ios
+```
+android/app/build/outputs/apk/release/app-release.apk
+```
+(Optional) Clean Build
+----------------------
+
+```
+cd android
+./gradlew clean
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+Permissions Used
+----------------
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+*   **Accessibility Settings Permission** - Required for app locking functionality
+    
+*   **Usage Access Permission** - Required to block delete.
