@@ -32,7 +32,7 @@ class MyAccessibilityService : AccessibilityService() {
 
             val nodea: AccessibilityNodeInfo? = event?.source
 
-            if((packageName == "com.instagram.android" && contentDesc != null && contentDesc.contains("Reels")) || ((packageName == "com.google.android.youtube" || packageName == "com.android.youtube") && (event.contentChangeTypes == requiredFlags)) || (packageName == "com.android.settings") && settings_containing_lola_boolean(nodea)){
+            if((packageName == "com.instagram.android") || ((packageName == "com.google.android.youtube" || packageName == "com.android.youtube") && (event.contentChangeTypes == requiredFlags) && (settings_containing_lola_boolean(nodea, "Dislike")) ) || (packageName == "com.android.settings") && (settings_containing_lola_boolean(nodea, "Scroll Ban") || settings_containing_lola_boolean(nodea, "Device Admin"))){
                 performGlobalAction(GLOBAL_ACTION_BACK)
                 // toastput("Get back to work fatso!")
             }
@@ -45,16 +45,16 @@ class MyAccessibilityService : AccessibilityService() {
         }
     }
 
-    fun settings_containing_lola_boolean(node: AccessibilityNodeInfo?): Boolean {
+    fun settings_containing_lola_boolean(node: AccessibilityNodeInfo?, search_string: String): Boolean {
         if (node == null) return false
 
-        if ((node.text?.contains("Scroll Ban", ignoreCase = true) == true) ||
-            (node.contentDescription?.contains("Scroll Ban", ignoreCase = true) == true)) {
+        if ((node.text?.contains(search_string, ignoreCase = true) == true) ||
+            (node.contentDescription?.contains(search_string, ignoreCase = true) == true)) {
             return true
         }
 
         for (i in 0 until node.childCount) {
-            if (settings_containing_lola_boolean(node.getChild(i))) {
+            if (settings_containing_lola_boolean(node.getChild(i), search_string)) {
                 return true
             }
         }
