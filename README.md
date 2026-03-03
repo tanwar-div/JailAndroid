@@ -1,10 +1,10 @@
-Scroll Block
+Jail Android
 ============
 
 Overview
 --------
 
-Scroll Block is a modern, open-source Android distraction blocker designed to reduce doom scrolling by blocking infinite short-form content on platforms like YouTube Shorts and Instagram. Enjoy a clean, Material You experience. No root required.
+Jail Android is a modern, open-source Android distraction blocker designed to reduce addictions like doom scrolling, gambling etc by blocking certain features or the whole application (ex: infinite short-form content on platforms like YouTube Shorts and Instagram, trading apps like upstox etc.). Enjoy a clean, Material You experience. No root required.
 
 Caution
 -------
